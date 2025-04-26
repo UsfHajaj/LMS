@@ -2,9 +2,12 @@
 using LMS.DTOs;
 using LMS.Models.Auth;
 using LMS.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NETCore.MailKit.Core;
 using System.Threading.Tasks;
 
 namespace LMS.Controllers
@@ -17,7 +20,7 @@ namespace LMS.Controllers
         private readonly IMapper _mapper;
         private readonly IJwtService _jwtService;
 
-        public AuthController(UserManager<AppUser> userManager,IMapper mapper,IJwtService jwtService)
+        public AuthController(UserManager<AppUser> userManager, IMapper mapper, IJwtService jwtService)
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -41,6 +44,7 @@ namespace LMS.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
+
                 await _userManager.AddToRoleAsync(user, "Student");
                 return Ok(new { Message = "User registered successfully" });
             }
@@ -59,11 +63,11 @@ namespace LMS.Controllers
             {
                 return Unauthorized("Invalid email or password");
             }
-            var result =await _userManager.CheckPasswordAsync(user, model.Password);
+            var result = await _userManager.CheckPasswordAsync(user, model.Password);
             if (result)
             {
                 var token = _jwtService.GenerateJwtToken(user);
-                return Ok(new 
+                return Ok(new
                 {
                     token = token,
                     expiration = DateTime.UtcNow.AddDays(1),
@@ -73,5 +77,50 @@ namespace LMS.Controllers
             return Unauthorized("Invalid email or password");
         }
 
+        //[HttpPost("forgot-password")]
+        //public async Task<IActionResult> forgotPassword([FromBody] ForgotPasswordDto model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    var user =await _userManager.FindByEmailAsync(model.Email);
+        //    if (user == null)
+        //    {
+        //        return BadRequest("User not found");
+        //    }
+        //    var token =await _userManager.GeneratePasswordResetTokenAsync(user);
+
+        //    await _emailService.SendAsync(model.Email,$"Your Reset token", $"Your Reset token is {token}");
+        //    // Implement password reset logic here
+        //    return Ok("Password reset link sent to your email");
+        //}
+
+        [HttpGet("users")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            return Ok(users);
+        }
+        [Authorize]
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+            {
+                return BadRequest("User not found");
+            }
+            var result = await _userManager.ChangePasswordAsync(user, model.Password, model.NewPassword);
+            if (result.Succeeded)
+            {
+                return Ok("Password changed successfully");
+            }
+            return BadRequest(result.Errors);
+        }
     }
 }

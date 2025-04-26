@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NETCore.MailKit.Core;
+using Org.BouncyCastle.Asn1.X509.Qualified;
 using System.Text;
 
 namespace LMS.Extensions
@@ -22,7 +24,6 @@ namespace LMS.Extensions
             services.AddScoped<ICoursesServies, CoursesServies>();
             services.AddScoped<ICoursesRepository, CoursesRepository>();
             services.AddScoped<IJwtService, JwtService>();
-
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
