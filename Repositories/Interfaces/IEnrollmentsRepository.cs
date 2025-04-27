@@ -4,6 +4,8 @@ namespace LMS.Repositories.Interfaces
 {
     public interface IEnrollmentsRepository:IGenericRepository<Enrollment>
     {
+        Task<IEnumerable<Enrollment>> GetAllEnrollment();
+        Task<Enrollment> EnrollmentById(int id);
         Task<Enrollment> EnrollmentByStudentIdAndCourseId(string studentId, int courseId);
         Task<IEnumerable<Enrollment>> EnrollmentsByStudentId(string studentId);
         Task<IEnumerable<Enrollment>> EnrollmentsByCourseId(int courseId);

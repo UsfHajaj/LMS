@@ -96,6 +96,19 @@ namespace LMS.Config
                 context.Courses.AddRange(courses);
                 await context.SaveChangesAsync();
             }
+            if (!context.Enrollments.Any())
+            {
+                var student = await context.Users.OfType<Student>().FirstOrDefaultAsync();
+                var course = await context.Courses.FirstOrDefaultAsync();
+
+                var enrollments = new List<Enrollment>
+                {
+                new Enrollment { StudentId = student.Id, CourseId = course.Id, IsCompleted = false, ProgressPercentage = 0.0 }
+                };
+
+                context.Enrollments.AddRange(enrollments);
+                await context.SaveChangesAsync();
+            }
         }
     }
 

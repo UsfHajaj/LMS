@@ -2,6 +2,7 @@
 using LMS.DTOs;
 using LMS.Models.Auth;
 using LMS.Models.Courses;
+using LMS.Models.Interaction;
 
 namespace LMS.Extensions
 {
@@ -26,6 +27,20 @@ namespace LMS.Extensions
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName));
+
+
+            CreateMap<EnrollmentDto, Enrollment>();
+            CreateMap<Enrollment, EnrollmentDto>()
+                .ForMember(dest => dest.StudentName, opt => opt.MapFrom(src => src.Student.FirstName + " " + src.Student.LastName))
+                .ForMember(dest => dest.CourseTitle, opt => opt.MapFrom(src => src.Course.Title));
+            CreateMap<Enrollment, UpdateEnrollmentDto>()
+                .ForMember(dest => dest.StudentId, opt => opt.MapFrom(src => src.StudentId))
+                .ForMember(dest => dest.CourseId, opt => opt.MapFrom(src => src.CourseId))
+                .ForMember(dest => dest.IsCompleted, opt => opt.MapFrom(src => src.IsCompleted))
+                .ForMember(dest => dest.ProgressPercentage, opt => opt.MapFrom(src => src.ProgressPercentage));
+            CreateMap<UpdateEnrollmentDto, Enrollment>();
+
+
         }
     }
 }
