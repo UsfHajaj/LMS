@@ -26,6 +26,9 @@ namespace LMS.Extensions
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IEnrollmentsRepository, EnrollmentsRepository>();
             services.AddScoped<IEnrollmentsServices, EnrollmentsServices>();
+            services.AddScoped<IDiscussionRepository, DiscussionRepository>();
+            services.AddScoped<IDiscussionServices, DiscussionServices>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

@@ -3,6 +3,7 @@ using LMS.DTOs;
 using LMS.Models.Auth;
 using LMS.Models.Courses;
 using LMS.Models.Interaction;
+using LMS.Models.Social;
 
 namespace LMS.Extensions
 {
@@ -40,7 +41,20 @@ namespace LMS.Extensions
                 .ForMember(dest => dest.ProgressPercentage, opt => opt.MapFrom(src => src.ProgressPercentage));
             CreateMap<UpdateEnrollmentDto, Enrollment>();
 
+            CreateMap<commentDto, Comment>();
+            CreateMap<Comment, commentDto>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName ));
 
+            CreateMap<EditCommentDto, Comment>();
+            CreateMap<Comment, EditCommentDto>();
+
+            CreateMap<DiscussionDto, Discussion>();
+            CreateMap<Discussion, DiscussionDto>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName ))
+                .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.Course.Title));
+
+            CreateMap<EditDiscussionDto, Discussion>();
+            CreateMap<Discussion, EditDiscussionDto>();
         }
     }
 }
