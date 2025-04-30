@@ -117,18 +117,23 @@ namespace LMS.Controllers
             {
                 return BadRequest(ModelState);
             }
+            if (comment == null)
+            {
+                return BadRequest();
+            }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
             {
                 return Unauthorized();
             }
             var discussion = await _services.GetDiscussionsByCourseIdAndUserIdAsync(courseId,userId);
-            var discussionId= discussion.FirstOrDefault()!.Id;
-            if (comment == null)
+            var FirstdiscussionId= discussion.FirstOrDefault();
+            if (FirstdiscussionId == null)
             {
-                return BadRequest();
+                return NotFound();
             }
-            
+            var discussionId = FirstdiscussionId.Id;
+
             var newComment = await _services.AddCommentAsync(comment, discussionId, courseId,userId);
             return CreatedAtAction(nameof(GetAllCommentByCourseIdDiscussionID), new { courseId = courseId, discussionId = discussionId }, newComment);
 

@@ -2,6 +2,7 @@
 using LMS.Models.Enums;
 using LMS.Models.Interaction;
 using LMS.Models.Social;
+using System.Reflection;
 
 namespace LMS.Models.Courses
 {
@@ -25,7 +26,10 @@ namespace LMS.Models.Courses
 
         public virtual Instructor Instructor { get; set; }
         public virtual CourseCategory Category { get; set; }
+        public virtual ICollection<Modules> Modules { get; set; }
         public virtual ICollection<Enrollment> Enrollments { get; set; }
         public virtual ICollection<Discussion> Discussions { get; set; }
+        public virtual ICollection<Assignment> Assignments { get; set; }
+        public virtual ICollection<Resource> Resources { get; set; }
     }
 }

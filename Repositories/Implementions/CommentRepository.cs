@@ -1,9 +1,9 @@
 ﻿using LMS.Models.Context;
 using LMS.Models.Social;
-using LMS.Repositories.Implementions;
+using LMS.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace LMS.Repositories.Interfaces
+namespace LMS.Repositories.Implementions
 {
     public class CommentRepository:GenericRepository<Comment>, ICommentRepository
     {

@@ -13,5 +13,6 @@ namespace LMS.Models.Interaction
         public virtual Student Student { get; set; }
         public virtual Course Course { get; set; }
 
+        public virtual ICollection<Progress> ProgressRecords { get; set; }
     }
 }

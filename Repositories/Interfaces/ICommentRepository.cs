@@ -1,7 +1,6 @@
 ﻿using LMS.Models.Social;
-using LMS.Repositories.Interfaces;
 
-namespace LMS.Repositories.Implementions
+namespace LMS.Repositories.Interfaces
 {
     public interface ICommentRepository:IGenericRepository<Comment>
     {

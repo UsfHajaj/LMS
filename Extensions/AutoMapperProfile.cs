@@ -22,6 +22,38 @@ namespace LMS.Extensions
                 .IncludeBase<RegisterModelDto,AppUser>();
             CreateMap<InstructorRegisterDto, Instructor>()
                 .IncludeBase<RegisterModelDto, AppUser>();
+            CreateMap<InstructorDto, Instructor>();
+            CreateMap<Instructor, InstructorDto>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
+                .ForMember(dest => dest.ProfilePicture, opt => opt.MapFrom(src => src.ProfilePicture))
+                .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.Bio))
+                .ForMember(dest => dest.Specialization, opt => opt.MapFrom(src => src.Specialization))
+                .ForMember(dest => dest.Skills, opt => opt.MapFrom(src => src.Skills))
+                .ForMember(dest => dest.Experience, opt => opt.MapFrom(src => src.Experience))
+                .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.Rating));
+
+            CreateMap<EditInstructorDto, Instructor>()
+                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
+                .ForMember(dest => dest.ProfilePicture, opt => opt.MapFrom(src => src.ProfilePicture))
+                .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.Bio))
+                .ForMember(dest => dest.Specialization, opt => opt.MapFrom(src => src.Specialization))
+                .ForMember(dest => dest.Skills, opt => opt.MapFrom(src => src.Skills))
+                .ForMember(dest => dest.Experience, opt => opt.MapFrom(src => src.Experience))
+                .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.Rating));
+
+            CreateMap<Instructor, EditInstructorDto>()
+                .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
+                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
+                .ForMember(dest => dest.ProfilePicture, opt => opt.MapFrom(src => src.ProfilePicture))
+                .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.Bio))
+                .ForMember(dest => dest.Specialization, opt => opt.MapFrom(src => src.Specialization))
+                .ForMember(dest => dest.Skills, opt => opt.MapFrom(src => src.Skills))
+                .ForMember(dest => dest.Experience, opt => opt.MapFrom(src => src.Experience))
+                .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.Rating));
 
             CreateMap<RegisterModelDto,AppUser>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
@@ -55,6 +87,8 @@ namespace LMS.Extensions
 
             CreateMap<EditDiscussionDto, Discussion>();
             CreateMap<Discussion, EditDiscussionDto>();
+
+
         }
     }
 }

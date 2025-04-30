@@ -1,11 +1,12 @@
-﻿using LMS.Models.Auth;
+﻿using LMS.DTOs;
+using LMS.Models.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace LMS.DTOs
+namespace LMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

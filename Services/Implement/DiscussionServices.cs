@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using LMS.DTOs;
 using LMS.Models.Social;
-using LMS.Repositories.Implementions;
 using LMS.Repositories.Interfaces;
 using LMS.Services.Interfaces;
 
