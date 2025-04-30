@@ -29,6 +29,10 @@ namespace LMS.Extensions
             services.AddScoped<IDiscussionRepository, DiscussionRepository>();
             services.AddScoped<IDiscussionServices, DiscussionServices>();
             services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IModulesRepository, ModulesRepository>();
+            services.AddScoped<IModulesService, ModulesService>();
+            services.AddScoped<ILessonRepository, LessonRepository>();
+            services.AddScoped<ILessonService, LessonService>();
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

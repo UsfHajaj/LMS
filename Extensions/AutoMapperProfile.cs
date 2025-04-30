@@ -88,7 +88,16 @@ namespace LMS.Extensions
             CreateMap<EditDiscussionDto, Discussion>();
             CreateMap<Discussion, EditDiscussionDto>();
 
+            CreateMap<ModulesDto, Modules>();
+            CreateMap<Modules, ModulesDto>()
+                .ForMember(dest => dest.CourseName, opt => opt.MapFrom(src => src.Course.Title));
+            CreateMap<EditModulesDto, Modules>();
 
+            CreateMap<Lesson, LessonDto>()
+                .ForMember(dest => dest.ModuleTitle, opt => opt.MapFrom(src => src.Module.Title));
+            CreateMap<LessonDto, Lesson>();
+            CreateMap<Lesson, EditLessonDto>();
+            CreateMap<EditLessonDto, Lesson>();
         }
     }
 }

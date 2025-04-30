@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LMS.DTOs;
+using LMS.Models.Courses;
 using LMS.Repositories.Interfaces;
 using LMS.Services.Interfaces;
 
@@ -15,29 +16,39 @@ namespace LMS.Services.Implement
             _repository = repository;
             _mapper = mapper;
         }
-        public Task<IEnumerable<ModulesDto>> GetAllModulesAsync()
+        public async Task<IEnumerable<ModulesDto>> GetAllModulesAsync()
         {
-            throw new NotImplementedException();
+            var modules =await _repository.GetAllModules();
+            var modulesDto = _mapper.Map<IEnumerable<ModulesDto>>(modules);
+            return modulesDto;
         }
 
-        public Task<ModulesDto> GetModulesByIdAsync(int id)
+        public async Task<ModulesDto> GetModulesByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var module =await _repository.GetModulesById(id);
+            return _mapper.Map<ModulesDto>(module);
         }
 
-        public Task<ModulesDto> AddModulesAsync(EditModulesDto modulesDto)
+        public async Task<ModulesDto> AddModulesAsync(EditModulesDto modulesDto)
         {
-            throw new NotImplementedException();
+            var module = _mapper.Map<Modules>(modulesDto);
+            await _repository.AddAsync(module);
+            await _repository.SaveChangesAsync();
+            return _mapper.Map<ModulesDto>(module);
         }
 
-        public Task UpdateModulesAsync(EditModulesDto moduleDto)
+        public async Task UpdateModulesAsync(int id,EditModulesDto moduleDto)
         {
-            throw new NotImplementedException();
+            var module = await _repository.GetByIdAsync(id);
+            _mapper.Map(moduleDto, module);
+            await _repository.SaveChangesAsync();
         }
 
-        public Task DeleteModulesAsync(int id)
+        public async Task DeleteModulesAsync(int id)
         {
-            throw new NotImplementedException();
+            var module =await _repository.GetByIdAsync(id);
+            await _repository.DeleteAsync(module);
+            await _repository.SaveChangesAsync();
         }
     }
 }
