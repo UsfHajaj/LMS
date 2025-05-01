@@ -33,6 +33,9 @@ namespace LMS.Extensions
             services.AddScoped<IModulesService, ModulesService>();
             services.AddScoped<ILessonRepository, LessonRepository>();
             services.AddScoped<ILessonService, LessonService>();
+            services.AddScoped<IProgressServies, ProgressServies>();
+            services.AddScoped<IProgressRepository, ProgressRepository>();
+
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

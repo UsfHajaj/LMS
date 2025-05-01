@@ -98,6 +98,9 @@ namespace LMS.Extensions
             CreateMap<LessonDto, Lesson>();
             CreateMap<Lesson, EditLessonDto>();
             CreateMap<EditLessonDto, Lesson>();
+
+            CreateMap<Progress, ProgressDto>();
+            CreateMap<ProgressDto, Progress>();
         }
     }
 }
