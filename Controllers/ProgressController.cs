@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
+using LMS.DTOs;
+using LMS.Models.Interaction;
 using LMS.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace LMS.Controllers
@@ -48,11 +51,26 @@ namespace LMS.Controllers
             }
             return Ok(progress);
         }
-        //[HttpPost("courses/{courseId}/lessons/{lessonId}/complete")]
-        //public IActionResult PostProgressCommplete()
-        //{
+        [HttpPost("courses/{courseId}/lessons/{lessonId}/complete")]
+        public async Task<ActionResult<ProgressDto>> PostProgressCommplete(int courseId,int lessonId,[FromBody] EditProgressDto progressDto)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            progressDto.LessonId = lessonId;
+            var Newprogress=await _servies.AddProgressAsync(userId,true, progressDto);
+            var progress=_mapper.Map<ProgressDto>(Newprogress);
+            return Newprogress;
+        }
+        [HttpPost("courses/{courseId}/lessons/{lessonId}/Start")]
+        public async Task<ActionResult<ProgressDto>> PostProgressStart(int courseId, int lessonId, [FromBody] EditProgressDto progressDto)
+        {
+            
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            progressDto.LessonId = lessonId;
+            var Newprogress = await _servies.AddProgressAsync(userId, false, progressDto);
+            var progress = _mapper.Map<ProgressDto>(Newprogress);
+            return Newprogress;
+        }
 
-        //}
 
 
     }
