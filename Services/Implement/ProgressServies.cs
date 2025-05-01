@@ -52,14 +52,13 @@ namespace LMS.Services.Implement
 
         
 
-        public async Task UpdateProgressAsync(int id, string studentId, bool IsCompleted, EditProgressDto progress)
+        public async Task UpdateProgressAsync(int id, string studentId, UpdateProgressDto progress)
         {
             var progressentity= await _repository.GetByIdAsync(id);
 
             _mapper.Map(progress, progressentity);
 
             progressentity.StudentId = studentId;
-            progressentity.IsCompleted = IsCompleted;
 
             await _repository.SaveChangesAsync();
         }

@@ -9,7 +9,7 @@ namespace LMS.Services.Interfaces
         Task<ProgressDto> GetProgressByIdAsync(int id);
         Task<ProgressDto> GetProgressByCourseIdAndLessonIdAsync(int courseId, int lessonId);
         Task<ProgressDto> AddProgressAsync(string studentId,bool IsCompleted, EditProgressDto progress);
-        Task UpdateProgressAsync(int id, string studentId, bool IsCompleted, EditProgressDto progress);
+        Task UpdateProgressAsync(int id, string studentId, UpdateProgressDto progress);
         Task DeleteProgressAsync(int id);
     }
 }

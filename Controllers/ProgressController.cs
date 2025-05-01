@@ -70,8 +70,25 @@ namespace LMS.Controllers
             var progress = _mapper.Map<ProgressDto>(Newprogress);
             return Newprogress;
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutProgress(int id, [FromBody] UpdateProgressDto progressDto)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var existProgress= await _servies.GetProgressByIdAsync(id);
+            if(existProgress==null)
+                return NotFound();
+            await _servies.UpdateProgressAsync(id,userId, progressDto);
+            return NoContent();
+        }
 
-
+        [HttpDelete]
+        public async Task<IActionResult> DeleteProgress(int id)
+        {
+            var progress = await _servies.GetProgressByIdAsync(id);
+            if(progress==null) return NotFound();
+            await _servies.DeleteProgressAsync(id);
+            return NoContent();
+        }
 
     }
 }
