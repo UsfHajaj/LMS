@@ -36,6 +36,15 @@ namespace LMS.Extensions
             services.AddScoped<IProgressServies, ProgressServies>();
             services.AddScoped<IProgressRepository, ProgressRepository>();
 
+            services.AddScoped<IQuizzeRepository, QuizzeRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
+            services.AddScoped<IAnswerRepository, AnswerRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // Register Services
+            services.AddScoped<IQuizeServies, QuizService>();
+
+
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

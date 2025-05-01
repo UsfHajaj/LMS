@@ -106,6 +106,54 @@ namespace LMS.Extensions
 
             CreateMap<UpdateProgressDto, Progress>();
             CreateMap<Progress,UpdateProgressDto>();
+
+
+
+
+
+
+
+            CreateMap<Quiz, QuizDto>();
+
+            CreateMap<Quiz, QuizDetailDto>()
+                .ForMember(dest => dest.Questions, opt => opt.MapFrom(src => src.Questions));
+            CreateMap<Question, QuestionDto>()
+                .ForMember(dest => dest.Answers, opt => opt.MapFrom(src => src.Answers));
+            CreateMap<Answer, AnswerDto>();
+
+            CreateMap<CreateQuizDto, Quiz>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Module, opt => opt.Ignore());
+
+            CreateMap<CreateQuestionDto, Question>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Quiz, opt => opt.Ignore());
+
+            CreateMap<CreateAnswerDto, Answer>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Question, opt => opt.Ignore());
+
+            // Assignment mappings
+            CreateMap<Assignment, AssignmentDto>()
+                .ForMember(dest => dest.HasAttachment, opt =>
+                    opt.MapFrom(src => !string.IsNullOrEmpty(src.AttachmentUrl)));
+
+            CreateMap<Assignment, AssignmentDetailDto>();
+
+            CreateMap<CreateAssignmentDto, Assignment>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Course, opt => opt.Ignore())
+                .ForMember(dest => dest.Submissions, opt => opt.Ignore());
+
+            CreateMap<UpdateAssignmentDto, Assignment>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.CourseId, opt => opt.Ignore())
+                .ForMember(dest => dest.Course, opt => opt.Ignore())
+                .ForMember(dest => dest.Submissions, opt => opt.Ignore());
+
+            CreateMap<Submission, SubmissionDto>()
+                .ForMember(dest => dest.StudentName, opt =>
+                    opt.MapFrom(src => $"{src.Student.FirstName} {src.Student.LastName}"));
         }
     }
 }
