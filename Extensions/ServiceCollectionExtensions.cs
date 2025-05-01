@@ -35,11 +35,18 @@ namespace LMS.Extensions
             services.AddScoped<ILessonService, LessonService>();
             services.AddScoped<IProgressServies, ProgressServies>();
             services.AddScoped<IProgressRepository, ProgressRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
+            services.AddScoped<INotificationService, NotificationService>();
 
             services.AddScoped<IQuizzeRepository, QuizzeRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
+
 
             // Register Services
             services.AddScoped<IQuizeServies, QuizService>();

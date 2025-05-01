@@ -30,45 +30,9 @@ namespace LMS.Services.Implement
         }
         public async Task<QuizDetailDto> CreateQuizAsync(int courseId, int moduleId, CreateQuizDto createQuizDto, string instructorId)
         {
-            var quiz = new Quiz
-            {
-                ModuleId = moduleId,
-                Title = createQuizDto.Title,
-                Description = createQuizDto.Description,
-                TimeLimit = createQuizDto.TimeLimit,
-                PassingScore = createQuizDto.PassingScore,
-                IsActive = createQuizDto.IsActive,
-                Questions = new List<Question>()
-            };
+            var quiz = _mapper.Map<Quiz>(createQuizDto);
+            quiz.ModuleId = moduleId;
 
-            // Add questions and answers
-            if (createQuizDto.Questions != null)
-            {
-                foreach (var questionDto in createQuizDto.Questions)
-                {
-                    var question = new Question
-                    {
-                        QuestionText = questionDto.QuestionText,
-                        QuestionType = questionDto.QuestionType,
-                        Points = questionDto.Points,
-                        Answers = new List<Answer>()
-                    };
-
-                    if (questionDto.Answers != null)
-                    {
-                        foreach (var answerDto in questionDto.Answers)
-                        {
-                            question.Answers.Add(new Answer
-                            {
-                                AnswerText = answerDto.AnswerText,
-                                IsCorrect = answerDto.IsCorrect
-                            });
-                        }
-                    }
-
-                    quiz.Questions.Add(question);
-                }
-            }
             await _unitOfWork.QuizRepository.AddAsync(quiz);
             await _unitOfWork.CompleteAsync();
 

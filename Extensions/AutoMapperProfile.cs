@@ -119,6 +119,10 @@ namespace LMS.Extensions
                 .ForMember(dest => dest.Questions, opt => opt.MapFrom(src => src.Questions));
             CreateMap<Question, QuestionDto>()
                 .ForMember(dest => dest.Answers, opt => opt.MapFrom(src => src.Answers));
+
+            //CreateMap<QuizResultDto, Quiz>();
+            //CreateMap<Quiz, QuizResultDto>();
+
             CreateMap<Answer, AnswerDto>();
 
             CreateMap<CreateQuizDto, Quiz>()
@@ -154,6 +158,20 @@ namespace LMS.Extensions
             CreateMap<Submission, SubmissionDto>()
                 .ForMember(dest => dest.StudentName, opt =>
                     opt.MapFrom(src => $"{src.Student.FirstName} {src.Student.LastName}"));
+
+            CreateMap<NotificationDto, Notification>();
+            CreateMap<Notification, NotificationDto>();
+
+            CreateMap<CreateNotificationDto, Notification>();
+            CreateMap<Notification,CreateNotificationDto>();
+
+            CreateMap<PaymentDto, Payment>();
+            CreateMap<Payment, PaymentDto>();
+            CreateMap<CreatePaymentDto, Payment>();
+            CreateMap<Payment, CreatePaymentDto>();
+
+            CreateMap<CreateTransactionDto, Transaction>();
+            CreateMap<Transaction,CreateTransactionDto>();
         }
     }
 }
